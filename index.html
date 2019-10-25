@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Legendit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+        <input type="file" name="file"><br>
+        <input type="submit" value="Enviar" id="btnSubmit">
+        <input type="submit" value="Legendar" id="btnLeg">
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                event.preventDefault();
+                let formData = new FormData(this);
+
+                $("#btnSubmit").prop("disabled", true);
+                $("#btnLeg").prop("disabled", true);
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    // url: "http://localhost:3000/posts/",
+                    url: "https://legendit-api.herokuapp.com/posts",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+
+                    success: function (data) {
+                        console.log(data);
+                        $("#btnSubmit").prop("disabled", false);
+                        $("#btnLeg").prop("disabled", false);
+                    },
+                    
+                    error: function (e) {
+                        console.log(e);
+                        $("#btnSubmit").prop("disabled", false);
+                    }
+                });
+
+                // $.ajax({
+                //     type: "POST",
+                //     enctype: 'multipart/form-data',
+                //     // url: "http://localhost:3000/posts/",
+                //     url: "https://legendit-api.herokuapp.com/posts",
+                //     data: formData,
+                //     processData: false,
+                //     contentType: false,
+                //     cache: false,
+
+                //     success: function (data) {
+                //         console.log(data);
+                //         $("#btnSubmit").prop("disabled", false);
+                //         $("#btnLeg").prop("disabled", false);
+                //     },
+                    
+                //     error: function (e) {
+                //         console.log(e);
+                //         $("#btnSubmit").prop("disabled", false);
+                //     }
+                // });
+            });
+        });
+    </script>
+</body>
+
+</html>
