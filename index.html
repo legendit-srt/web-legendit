@@ -11,17 +11,26 @@
 
 <body>
     <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
-        <input type="file" name="file"><br>
+        <input id="file-input" type="file" name="file"><br>
         <input type="submit" value="Enviar" id="btnSubmit">
         <input type="submit" value="Legendar" id="btnLeg">
     </form>
+
+    <table>
+
+    </table>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
             $("form").submit(function (event) {
                 event.preventDefault();
-                let formData = new FormData(this);
+                
+                let blob = document.getElementById(`file-input`).files[0];
+                let file = new File([blob], `${Date.now()}-${blob.name}`, { type: blob.type });
+
+                let formData = new FormData();
+                formData.append(`file`, file);
 
                 $("#btnSubmit").prop("disabled", true);
                 $("#btnLeg").prop("disabled", true);
@@ -29,7 +38,6 @@
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
-                    // url: "http://localhost:3000/posts/",
                     url: "https://legendit-api.herokuapp.com/posts",
                     data: formData,
                     processData: false,
@@ -51,7 +59,6 @@
                 // $.ajax({
                 //     type: "POST",
                 //     enctype: 'multipart/form-data',
-                //     // url: "http://localhost:3000/posts/",
                 //     url: "https://legendit-api.herokuapp.com/posts",
                 //     data: formData,
                 //     processData: false,
