@@ -1,22 +1,78 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="script" href="font.js">
     <title>Legendit</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 
 <body>
+    <div style="text-align: center">
+        <ul class="navbar-nav w-100 align-items-center" style="margin-top: 30px; padding: 10px">
+            <li class="nav-item">
+                <h1 style="color: #999999">Legendit</h1>
+            </li>
+        </ul>
+    </div>
+
     <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
-        <input id="file-input" type="file" name="file"><br>
-        <input type="submit" value="Enviar" id="btnSubmit">
-        <input type="submit" value="Legendar" id="btnLeg">
+        <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <div class="file-upload">
+
+
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" id="file-input" type='file' name="file"/>
+                <div class="drag-text">
+                    <h3>Clique ou arraste os arquivos</h3>
+                </div>                  
+            </div>
+            <input type="submit" value="Enviar" id="btnSubmit">  
+            <div class="file-upload-content">
+                <img class="file-upload-image" src="#" alt="your image" />
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                        <span class="image-title">Uploaded Image</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </form>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <form action="" id="submit">
+        <!--Material textarea-->
+        <div class="md-textarea">
+            <label for="legendagerada">Texto</label>
+            <textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea>
+
+        </div>
+
+        <div>
+            <input type="text" id="titulo" placeholder="Nome do Arquivo">
+        </div>
+        <div>
+            <button onclick="salvar()">Salvar</button>
+        </div>
+
+        <div></div>
+    </form>
+    <script type="text/javascript" src="save.js "></script>
+    <!-- função ao clicar em salvar -->
+    <script>
+        function salvar() {
+            let texto = document.getElementById("legendagerada").value;
+            let titulo = document.getElementById("titulo").value;
+            let blob = new Blob([texto], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, titulo + ".srt");
+        }
+    </script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
             $("form").submit(function (event) {
@@ -29,7 +85,6 @@
                 formData.append(`file`, file);
 
                 $("#btnSubmit").prop("disabled", true);
-                $("#btnLeg").prop("disabled", true);
 
                 //REQUISICAO DE UPLOAD FEITA PELO DIOGO
                 $.ajax({
@@ -51,32 +106,35 @@
                         console.log(e);
                         $("#btnSubmit").prop("disabled", false);
                     }
-                });
+                });               
                 
-                
+
                 //REQUISICAO PARA A API PYTHON, APAGAR JAMAIS NESSA VIDA!!!!!!!!!!!!
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',                        
+                    url: "http://django-env.fc4vdtpig8.us-west-2.elasticbeanstalk.com/api/legendar",
+                    //Esse data aqui abaixo deverá ser modificado para receber o json (objeto) retornado pela api do upload (usar a chave key do objeto)
+                    data: JSON.stringify({nome: "MolicoQuetalrepensaroleitequevocetoma.flac"}),
+                    processData: false,
+                    contentType: 'application/json',
+                    cache: false,
 
-                // $.ajax({
-                //     type: "POST",
-                //     enctype: 'multipart/form-data',                        
-                //     url: "http://django-env.fc4vdtpig8.us-west-2.elasticbeanstalk.com/api/legendar",
-                //     data: JSON.stringify({nome: "MolicoQuetalrepensaroleitequevocetoma.flac"}),
-                //     processData: false,
-                //     contentType: 'application/json',
-                //     cache: false,
-
-                //     success: function (data) {
-                //         //Aqui nesse console.log, está retornando o json na tela. Neste caso, deverá retornar no json que gera legenda.
-                //         console.log(createSRT(JSON.stringify(data)));
-                //         $("#btnSubmit").prop("disabled", false);
-                //         $("#btnLeg").prop("disabled", false);
-                //     },
+                    success: function (data) {
+                        //Aqui nesse console.log, está retornando a legenda no console.
+                        console.log(createSRT(JSON.stringify(data)));
+                        //Aqui retorna a legenda totalmente pronta para a text area!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        document.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
+                        $("#btnSubmit").prop("disabled", false);
+                    },
                     
-                //     error: function (e) {
-                //         console.log(e);
-                //         $("#btnSubmit").prop("disabled", false);
-                //     }
-                // });
+                    error: function (e) {
+                        console.log(e);
+                        $("#btnSubmit").prop("disabled", false);
+                    }
+                });
+
+
 
 
 
@@ -102,12 +160,9 @@
                 //         $("#btnSubmit").prop("disabled", false);
                 //     }
                 // });
-
-
                 
             });
         });
-
         
     </script>
 
@@ -162,7 +217,7 @@
         }
     
     </script>
-
+	
 </body>
 
 </html>
