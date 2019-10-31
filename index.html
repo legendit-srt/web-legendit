@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -16,10 +16,6 @@
         <input type="submit" value="Legendar" id="btnLeg">
     </form>
 
-    <table>
-
-    </table>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -35,6 +31,7 @@
                 $("#btnSubmit").prop("disabled", true);
                 $("#btnLeg").prop("disabled", true);
 
+                //REQUISICAO DE UPLOAD FEITA PELO DIOGO
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
@@ -55,7 +52,8 @@
                         $("#btnSubmit").prop("disabled", false);
                     }
                 });
-
+                
+                
                 //REQUISICAO PARA A API PYTHON, APAGAR JAMAIS NESSA VIDA!!!!!!!!!!!!
 
                 // $.ajax({
@@ -69,7 +67,7 @@
 
                 //     success: function (data) {
                 //         //Aqui nesse console.log, está retornando o json na tela. Neste caso, deverá retornar no json que gera legenda.
-                //         console.log(JSON.stringify(data));
+                //         console.log(createSRT(JSON.stringify(data)));
                 //         $("#btnSubmit").prop("disabled", false);
                 //         $("#btnLeg").prop("disabled", false);
                 //     },
@@ -82,10 +80,9 @@
 
 
 
+                //ESSE CÓDIGO COMENTADO ABAIXO O DIOGO DEIXOU, ENTAO NAO QUIS APAGAR
 
-                //ESSE POST ABAIXO JA TINHA PELO DIOGO
-
-                                // $.ajax({
+                // $.ajax({
                 //     type: "POST",
                 //     enctype: 'multipart/form-data',
                 //     url: "https://legendit-api.herokuapp.com/posts",
@@ -105,10 +102,67 @@
                 //         $("#btnSubmit").prop("disabled", false);
                 //     }
                 // });
+
+
                 
             });
         });
+
+        
     </script>
+
+    <script>
+        //FUNCAO QUE CONVERTE JSON PARA LEGENDA
+        function createSRT(legendaJson) {
+            var resultado = "";
+            var start_time = "";
+            var end_time = "";
+            var sentence = "";
+            var n = 1;
+            var t = 1;
+			var wtb = 10;
+
+            var j = JSON.parse(legendaJson); //Receber Json da legenda aqui;
+            var c = j.results.items.length;
+            for (i = 0; i < c; i++) {
+                if (j.results.items[i].type == "pronunciation") {
+                    if (start_time == "") start_time = j.results.items[i].start_time;
+                    end_time = j.results.items[i].end_time;
+                    sentence += j.results.items[i].alternatives[0].content + " ";
+                    t++;
+                }
+                else if (j.results.items[i].type == "punctuation" && j.results.items[i].alternatives[0].content == ".") {
+                    resultado += n + "\n";
+                    resultado += formatTime(start_time) + " --> " + formatTime(end_time) + "\n" + sentence + "\n\n";
+                    sentence = "";
+                    start_time = "";
+                    n++;
+                    t = 1;
+                }
+                if(t > wtb){
+                    resultado += n + "\n";
+                    resultado += formatTime(start_time) + " --> " + formatTime(end_time) + "\n" + sentence + "\n\n";
+                    sentence = "";
+                    start_time = "";
+                    n++;
+                    t = 1;
+                }
+            }
+
+            return resultado;
+        }
+
+        //FUNCAO DE CONVERSAO DE TEMPO
+        function formatTime(t) {
+            a = t.split(".");
+            var date = new Date(null);
+            date.setSeconds(a[0]); // specify value for SECONDS here
+            var result = date.toISOString().substr(11, 8);
+            return result + "," + a[1];
+        }
+    
+    </script>
+
 </body>
 
 </html>
