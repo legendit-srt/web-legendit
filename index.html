@@ -47,7 +47,7 @@
                     success: function (data) {
                         console.log(data);
                         $("#btnSubmit").prop("disabled", false);
-                        $("#btnLeg").prop("disabled", false);
+                        $("#btnLeg").prop("disabled", false);                                           
                     },
                     
                     error: function (e) {
@@ -56,7 +56,36 @@
                     }
                 });
 
+                //REQUISICAO PARA A API PYTHON, APAGAR JAMAIS NESSA VIDA!!!!!!!!!!!!
+
                 // $.ajax({
+                //     type: "POST",
+                //     enctype: 'multipart/form-data',                        
+                //     url: "http://django-env.fc4vdtpig8.us-west-2.elasticbeanstalk.com/api/legendar",
+                //     data: JSON.stringify({nome: "MolicoQuetalrepensaroleitequevocetoma.flac"}),
+                //     processData: false,
+                //     contentType: 'application/json',
+                //     cache: false,
+
+                //     success: function (data) {
+                //         //Aqui nesse console.log, está retornando o json na tela. Neste caso, deverá retornar no json que gera legenda.
+                //         console.log(JSON.stringify(data));
+                //         $("#btnSubmit").prop("disabled", false);
+                //         $("#btnLeg").prop("disabled", false);
+                //     },
+                    
+                //     error: function (e) {
+                //         console.log(e);
+                //         $("#btnSubmit").prop("disabled", false);
+                //     }
+                // });
+
+
+
+
+                //ESSE POST ABAIXO JA TINHA PELO DIOGO
+
+                                // $.ajax({
                 //     type: "POST",
                 //     enctype: 'multipart/form-data',
                 //     url: "https://legendit-api.herokuapp.com/posts",
@@ -76,6 +105,7 @@
                 //         $("#btnSubmit").prop("disabled", false);
                 //     }
                 // });
+                
             });
         });
     </script>
