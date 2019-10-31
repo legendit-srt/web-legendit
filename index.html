@@ -32,7 +32,7 @@
                     <h3>Clique ou arraste os arquivos</h3>
                 </div>                  
             </div>
-            <input type="submit" value="Enviar" id="btnSubmit">  
+            <input type="submit" value="Legendar" id="btnSubmit">  
             <div class="file-upload-content">
                 <img class="file-upload-image" src="#" alt="your image" />
                 <div class="image-title-wrap">
@@ -56,7 +56,7 @@
             <input type="text" id="titulo" placeholder="Nome do Arquivo">
         </div>
         <div>
-            <button onclick="salvar()">Salvar</button>
+            <button onclick="salvar()">Baixar</button>
         </div>
 
         <div></div>
@@ -86,8 +86,9 @@
 
                 $("#btnSubmit").prop("disabled", true);
 
-                //REQUISICAO DE UPLOAD FEITA PELO DIOGO
+                //REQUISICAO DE UPLOAD PARA O S3 (NODE)
                 $.ajax({
+                    async: true,
                     type: "POST",
                     enctype: 'multipart/form-data',
                     url: "https://legendit-api.herokuapp.com/posts",
@@ -97,69 +98,36 @@
                     cache: false,
 
                     success: function (data) {
-                        console.log(data);
-                        $("#btnSubmit").prop("disabled", false);
-                        $("#btnLeg").prop("disabled", false);                                           
+                        //REQUISICAO PARA O TRANSCRIBE (PYTHON)
+                        $.ajax({
+                            type: "POST",
+                            enctype: 'multipart/form-data',                        
+                            url: "http://127.0.0.1:8000/api/legendar",
+                            //data: JSON.stringify({nome: "MolicoQuetalrepensaroleitequevocetoma.flac"}),                            
+                            data: "{\"nome\":".concat(`"${data.key}"}`),
+                            processData: false,
+                            contentType: 'application/json',
+                            cache: false,
+
+                            success: function (data) {
+                                console.log(createSRT(JSON.stringify(data)));
+                                document.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
+                                $("#btnSubmit").prop("disabled", false);
+                            },
+                            
+                            error: function (e) {
+                                console.log(e);
+                                $("#btnSubmit").prop("disabled", false);
+                            }
+                        });
+
                     },
                     
                     error: function (e) {
                         console.log(e);
                         $("#btnSubmit").prop("disabled", false);
                     }
-                });               
-                
-
-                //REQUISICAO PARA A API PYTHON, APAGAR JAMAIS NESSA VIDA!!!!!!!!!!!!
-                $.ajax({
-                    type: "POST",
-                    enctype: 'multipart/form-data',                        
-                    url: "http://django-env.fc4vdtpig8.us-west-2.elasticbeanstalk.com/api/legendar",
-                    //Esse data aqui abaixo deverá ser modificado para receber o json (objeto) retornado pela api do upload (usar a chave key do objeto)
-                    data: JSON.stringify({nome: "MolicoQuetalrepensaroleitequevocetoma.flac"}),
-                    processData: false,
-                    contentType: 'application/json',
-                    cache: false,
-
-                    success: function (data) {
-                        //Aqui nesse console.log, está retornando a legenda no console.
-                        console.log(createSRT(JSON.stringify(data)));
-                        //Aqui retorna a legenda totalmente pronta para a text area!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        document.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
-                        $("#btnSubmit").prop("disabled", false);
-                    },
-                    
-                    error: function (e) {
-                        console.log(e);
-                        $("#btnSubmit").prop("disabled", false);
-                    }
-                });
-
-
-
-
-
-                //ESSE CÓDIGO COMENTADO ABAIXO O DIOGO DEIXOU, ENTAO NAO QUIS APAGAR
-
-                // $.ajax({
-                //     type: "POST",
-                //     enctype: 'multipart/form-data',
-                //     url: "https://legendit-api.herokuapp.com/posts",
-                //     data: formData,
-                //     processData: false,
-                //     contentType: false,
-                //     cache: false,
-
-                //     success: function (data) {
-                //         console.log(data);
-                //         $("#btnSubmit").prop("disabled", false);
-                //         $("#btnLeg").prop("disabled", false);
-                //     },
-                    
-                //     error: function (e) {
-                //         console.log(e);
-                //         $("#btnSubmit").prop("disabled", false);
-                //     }
-                // });
+                });   
                 
             });
         });
@@ -167,7 +135,6 @@
     </script>
 
     <script>
-        //FUNCAO QUE CONVERTE JSON PARA LEGENDA
         function createSRT(legendaJson) {
             var resultado = "";
             var start_time = "";
@@ -177,7 +144,7 @@
             var t = 1;
 			var wtb = 10;
 
-            var j = JSON.parse(legendaJson); //Receber Json da legenda aqui;
+            var j = JSON.parse(legendaJson); 
             var c = j.results.items.length;
             for (i = 0; i < c; i++) {
                 if (j.results.items[i].type == "pronunciation") {
@@ -207,11 +174,10 @@
             return resultado;
         }
 
-        //FUNCAO DE CONVERSAO DE TEMPO
         function formatTime(t) {
             a = t.split(".");
             var date = new Date(null);
-            date.setSeconds(a[0]); // specify value for SECONDS here
+            date.setSeconds(a[0]); 
             var result = date.toISOString().substr(11, 8);
             return result + "," + a[1];
         }
