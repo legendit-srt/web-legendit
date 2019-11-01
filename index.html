@@ -29,10 +29,11 @@
             <div class="image-upload-wrap">
                 <input class="file-upload-input" id="file-input" type='file' name="file"/>
                 <div class="drag-text">
-                    <h3>Clique ou arraste os arquivos</h3>
+                    <h3>Clique ou arraste os arquivos aqui</h3>
                 </div>                  
             </div>
-            <input type="submit" value="Legendar" id="btnSubmit">  
+        </br>
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar" id="btnSubmit">  
             <div class="file-upload-content">
                 <img class="file-upload-image" src="#" alt="your image" />
                 <div class="image-title-wrap">
@@ -45,18 +46,19 @@
     </form>
 
     <form action="" id="submit">
-        <!--Material textarea-->
-        <div class="md-textarea">
-            <label for="legendagerada">Texto</label>
+        <!--Material textarea-->       
+        <div class="md-textarea">          
+                
             <textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea>
 
         </div>
-
+        </br>
         <div>
             <input type="text" id="titulo" placeholder="Nome do Arquivo">
         </div>
+        </br>
         <div>
-            <button onclick="salvar()">Baixar</button>
+            <button class="btn btn-primary btn-lg" id="btnDownload" onclick="salvar()">Baixar</button>
         </div>
 
         <div></div>
@@ -85,6 +87,7 @@
                 formData.append(`file`, file);
 
                 $("#btnSubmit").prop("disabled", true);
+                $("#btnDownload").prop("disabled", true);
 
                 //REQUISICAO DE UPLOAD PARA O S3 (NODE)
                 $.ajax({
@@ -113,11 +116,13 @@
                                 console.log(createSRT(JSON.stringify(data)));
                                 document.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
                                 $("#btnSubmit").prop("disabled", false);
+                                $("#btnDownload").prop("disabled", false);
                             },
                             
                             error: function (e) {
                                 console.log(e);
                                 $("#btnSubmit").prop("disabled", false);
+                                 $("#btnDownload").prop("disabled", false);
                             }
                         });
 
