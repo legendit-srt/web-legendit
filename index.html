@@ -105,12 +105,14 @@
                         $.ajax({
                             type: "POST",
                             enctype: 'multipart/form-data',                        
-                            url: "http://127.0.0.1:8000/api/legendar",
+                            //url: "http://127.0.0.1:8000/api/legendar",
+							url: "http://django-env.xvbuikye2d.us-west-2.elasticbeanstalk.com/api/legendar",
                             //data: JSON.stringify({nome: "MolicoQuetalrepensaroleitequevocetoma.flac"}),                            
                             data: "{\"nome\":".concat(`"${data.key}"}`),
                             processData: false,
                             contentType: 'application/json',
                             cache: false,
+                            crossDomain: true,
 
                             success: function (data) {
                                 console.log(createSRT(JSON.stringify(data)));
