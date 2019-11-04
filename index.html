@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <link rel="script" href="font.js">
+    <link rel="stylesheet" href="content/css/style.css">
+    <link rel="script" href="content/js/font.js">
     <title>Legendit</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
@@ -25,170 +25,62 @@
         <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <div class="file-upload">
 
-
             <div class="image-upload-wrap">
+
                 <input class="file-upload-input" id="file-input" type='file' name="file"/>
+
                 <div class="drag-text">
-                    <h3>Clique ou arraste os arquivos aqui</h3>
+                    <h3>Clique ou arraste o arquivo aqui</h3>
                 </div>                  
+
             </div>
+
         </br>
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar" id="btnSubmit">  
             <div class="file-upload-content">
+
                 <img class="file-upload-image" src="#" alt="your image" />
+
                 <div class="image-title-wrap">
                     <button type="button" onclick="removeUpload()" class="remove-image">Remove
                         <span class="image-title">Uploaded Image</span>
                     </button>
                 </div>
+
             </div>
+
         </div>
+
     </form>
 
-    <form action="" id="submit">
-        <!--Material textarea-->       
-        <div class="md-textarea">          
-                
+    <form action="" id="submit">    
+        <div class="md-textarea">     
             <textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea>
-
         </div>
         </br>
+
         <div>
             <input type="text" id="titulo" placeholder="Nome do Arquivo">
         </div>
+
         </br>
         <div>
-            <button class="btn btn-primary btn-lg" id="btnDownload" onclick="salvar()">Baixar</button>
+            <button class="btn btn-primary btn-lg" id="btnDownload" onclick="salvar(document)">Baixar</button>
         </div>
 
-        <div></div>
     </form>
-    <script type="text/javascript" src="save.js "></script>
-    <!-- função ao clicar em salvar -->
-    <script>
-        function salvar() {
-            let texto = document.getElementById("legendagerada").value;
-            let titulo = document.getElementById("titulo").value;
-            let blob = new Blob([texto], { type: "text/plain;charset=utf-8" });
-            saveAs(blob, titulo + ".srt");
-        }
-    </script>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("form").submit(function (event) {
-                event.preventDefault();
-                
-                let blob = document.getElementById(`file-input`).files[0];
-                let file = new File([blob], `${Date.now()}-${blob.name}`, { type: blob.type });
 
-                let formData = new FormData();
-                formData.append(`file`, file);
-
-                $("#btnSubmit").prop("disabled", true);
-                $("#btnDownload").prop("disabled", true);
-
-                //REQUISICAO DE UPLOAD PARA O S3 (NODE)
-                $.ajax({
-                    async: true,
-                    type: "POST",
-                    enctype: 'multipart/form-data',
-                    url: "https://legendit-api.herokuapp.com/posts",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-
-                    success: function (data) {
-                        //REQUISICAO PARA O TRANSCRIBE (PYTHON)!
-                        $.ajax({
-                            type: "POST",
-                            enctype: 'multipart/form-data',                        
-                            //url: "http://127.0.0.1:8000/api/legendar",
-							url: "http://django-env.xvbuikye2d.us-west-2.elasticbeanstalk.com/api/legendar",
-                            //data: JSON.stringify({nome: "MolicoQuetalrepensaroleitequevocetoma.flac"}),                            
-                            data: "{\"nome\":".concat(`"${data.key}"}`),
-                            processData: false,
-                            contentType: 'application/json',
-                            cache: false,
-                            crossDomain: true,
-
-                            success: function (data) {
-                                console.log(createSRT(JSON.stringify(data)));
-                                document.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
-                                $("#btnSubmit").prop("disabled", false);
-                                $("#btnDownload").prop("disabled", false);
-                            },
-                            
-                            error: function (e) {
-                                console.log(e);
-                                $("#btnSubmit").prop("disabled", false);
-                                 $("#btnDownload").prop("disabled", false);
-                            }
-                        });
-
-                    },
-                    
-                    error: function (e) {
-                        console.log(e);
-                        $("#btnSubmit").prop("disabled", false);
-                    }
-                });   
-                
-            });
-        });
-        
+    <script type="text/javascript" src="content/js/save.js">
+        function salvar(documentBody);
     </script>
 
+    <script src="content/js/requisicao.js" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script>
-        function createSRT(legendaJson) {
-            var resultado = "";
-            var start_time = "";
-            var end_time = "";
-            var sentence = "";
-            var n = 1;
-            var t = 1;
-			var wtb = 10;
+        requisitar(document);        
+    </script>
 
-            var j = JSON.parse(legendaJson); 
-            var c = j.results.items.length;
-            for (i = 0; i < c; i++) {
-                if (j.results.items[i].type == "pronunciation") {
-                    if (start_time == "") start_time = j.results.items[i].start_time;
-                    end_time = j.results.items[i].end_time;
-                    sentence += j.results.items[i].alternatives[0].content + " ";
-                    t++;
-                }
-                else if (j.results.items[i].type == "punctuation" && j.results.items[i].alternatives[0].content == ".") {
-                    resultado += n + "\n";
-                    resultado += formatTime(start_time) + " --> " + formatTime(end_time) + "\n" + sentence + "\n\n";
-                    sentence = "";
-                    start_time = "";
-                    n++;
-                    t = 1;
-                }
-                if(t > wtb){
-                    resultado += n + "\n";
-                    resultado += formatTime(start_time) + " --> " + formatTime(end_time) + "\n" + sentence + "\n\n";
-                    sentence = "";
-                    start_time = "";
-                    n++;
-                    t = 1;
-                }
-            }
-
-            return resultado;
-        }
-
-        function formatTime(t) {
-            a = t.split(".");
-            var date = new Date(null);
-            date.setSeconds(a[0]); 
-            var result = date.toISOString().substr(11, 8);
-            return result + "," + a[1];
-        }
-    
+    <script src="content/js/createSrt.js">
+        function createSRT(legendaJson);    
     </script>
 	
 </body>
