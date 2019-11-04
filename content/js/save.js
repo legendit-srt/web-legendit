@@ -157,5 +157,5 @@ function salvar(documentBody){
 	let texto = documentBody.getElementById("legendagerada").value;
     let titulo = documentBody.getElementById("titulo").value;
     let blob = new Blob([texto], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, titulo + ".srt");
+    saveAs(blob, retornaNomeArquivo() + ".srt");
 }	
