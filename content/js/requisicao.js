@@ -1,3 +1,5 @@
+let nomeArquivo;
+
 function requisitar(requisicaoBody) {		
 	$(requisicaoBody).ready(function () {
         $("form").submit(function (event) {
@@ -5,7 +7,7 @@ function requisitar(requisicaoBody) {
             
             let blob = requisicaoBody.getElementById(`file-input`).files[0];
             let file = new File([blob], `${Date.now()}-${blob.name}`, { type: blob.type });
-    
+            nomeArquivo = blob.name;
             let formData = new FormData();
             formData.append(`file`, file);
     
@@ -30,6 +32,7 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         cache: false,
 
         success: function (data) {
+            nomeArquivo = data.key;
             requisitarPythonTranscribe(data, requisicaoBody);    
         },
         
@@ -65,4 +68,8 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
              $("#btnDownload").prop("disabled", false);
         }
     });
+}
+
+function retornaNomeArquivo() {
+    return nomeArquivo;
 }
