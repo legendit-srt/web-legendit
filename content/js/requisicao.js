@@ -38,8 +38,7 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         cache: false,
 
         success: function (data) {
-            requisitarPythonTranscribe(data, requisicaoBody); 
-            jaRequisitado = true;   
+            requisitarPythonTranscribe(data, requisicaoBody);             
         },
         
         error: function (e) {
@@ -69,6 +68,7 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             mostrarComponenteLegenda();
             esconderComponenteUpload();
             requisicaoBody.getElementById("titulo").value = nomeArquivo;
+            jaRequisitado = true;   
         },
         
         error: function (e) {
