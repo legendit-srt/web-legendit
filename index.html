@@ -21,64 +21,33 @@
         </ul>
     </div>
 
-    <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+    <form id="fileUploadForm">
         <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <div class="file-upload" id="formUpload">
-
             <div class="image-upload-wrap">
-
                 <input class="file-upload-input" id="file-input" type='file' name="file"/>
-
-                <div class="drag-text">
-                    <h3>Clique ou arraste o arquivo aqui</h3>
-                </div>                  
-
+                <div class="drag-text"><h3>Clique ou arraste o arquivo aqui</h3></div>   
             </div>
-
         </br>
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar" id="btnSubmit">  
-            <div class="file-upload-content">
-
-                <img class="file-upload-image" src="#" alt="your image" />
-
-            </div>
-
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar" id="btnSubmit" onclick="(requisitar(document))">  
+            <div class="file-upload-content"><img class="file-upload-image" src="#" alt="your image" /></div>
         </div>
 
     </form>
 
     <form action="" id="submit">    
-        <div class="md-textarea">     
-            <textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea>
-        </div>
+        <div class="md-textarea"><textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea></div>
+        </br>       
+        <div><input type="text" id="titulo"></div>
         </br>
-       
-        <div>
-            <input type="text" id="titulo" placeholder="Nome do Arquivo">
-        </div>
-
+        <div><button class="btn btn-primary btn-lg" id="btnDownload" onclick="salvar(document)">Baixar</button></div>
         </br>
-        <div>
-            <button class="btn btn-primary btn-lg" id="btnDownload" onclick="salvar(document)">Baixar</button>
-        </div>
-
-        </br>
-        <div>
-            <button class="btn btn-primary btn-lg" id="btnRefresh" onclick="atualizarPagina()">Legendar novo arquivo</button>
-        </div>
-
+        <div><button class="btn btn-primary btn-lg" id="btnRefresh" onclick="atualizarPagina()">Legendar novo arquivo</button></div>
     </form>
-
-    <script type="text/javascript" src="content/js/save.js">
-        salvar(document);
-    </script>
-
+    
     <script src="content/js/requisicao.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        requisitar(document);   
-    </script>
-
-    <script src="content/js/createSrt.js"></script>    
+    <script src="content/js/createSrt.js"></script>        
+    <script src="content/js/save.js"></script>
     <script src="content/js/hideComponents.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </body>
