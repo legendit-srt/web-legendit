@@ -41,12 +41,6 @@
 
                 <img class="file-upload-image" src="#" alt="your image" />
 
-                <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove
-                        <span class="image-title">Uploaded Image</span>
-                    </button>
-                </div>
-
             </div>
 
         </div>
@@ -58,6 +52,10 @@
             <textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea>
         </div>
         </br>
+       
+        <div>
+            <input type="text" id="titulo" placeholder="Nome do Arquivo">
+        </div>
 
         </br>
         <div>
@@ -77,13 +75,10 @@
 
     <script src="content/js/requisicao.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        requisitar(document);        
+        requisitar(document);   
     </script>
 
-    <script src="content/js/createSrt.js">
-        createSRT(legendaJson);    
-    </script>
-    
+    <script src="content/js/createSrt.js"></script>    
     <script src="content/js/hideComponents.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </body>

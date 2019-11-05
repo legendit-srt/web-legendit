@@ -1,3 +1,5 @@
+let nomeLegenda
+
 function requisitar(requisicaoBody) {		
 	$(requisicaoBody).ready(function () {
         $("form").submit(function (event) {
@@ -11,6 +13,8 @@ function requisitar(requisicaoBody) {
             $("#btnSubmit").prop("disabled", true);
             $("#btnDownload").prop("disabled", true);
     
+            nomeLegenda = blob.name;
+
             requisitarNodeS3Upload(formData, requisicaoBody);  
             
         });
@@ -58,6 +62,8 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             $("#btnDownload").prop("disabled", false);
             mostrarComponenteLegenda();
             esconderComponenteUpload();
+            requisicaoBody.getElementById("titulo").value = nomeLegenda;
+            requisicaoBody.getElementById(`file-input`).files[0] = null;
         },
         
         error: function (e) {
