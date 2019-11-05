@@ -1,10 +1,13 @@
 let nomeArquivo;
+let jaRequisitado;
 
 function requisitar(requisicaoBody) {		
 	$(requisicaoBody).ready(function () {
         $("form").submit(function (event) {
             event.preventDefault();
             
+            if (!jaRequisitado) {
+                
             let blob = requisicaoBody.getElementById(`file-input`).files[0];
             let file = new File([blob], `${Date.now()}-${blob.name}`, { type: blob.type });
             let formData = new FormData();
@@ -17,6 +20,8 @@ function requisitar(requisicaoBody) {
 
             requisitarNodeS3Upload(formData, requisicaoBody);  
             
+            }
+
         });
     });		
 }	
@@ -33,7 +38,7 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         cache: false,
 
         success: function (data) {
-            requisitarPythonTranscribe(data, requisicaoBody);    
+            requisitarPythonTranscribe(data, requisicaoBody);             
         },
         
         error: function (e) {
@@ -63,7 +68,7 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             mostrarComponenteLegenda();
             esconderComponenteUpload();
             requisicaoBody.getElementById("titulo").value = nomeArquivo;
-            requisicaoBody.getElementById(`file-input`).files[0] = null;
+            jaRequisitado = true;   
         },
         
         error: function (e) {
