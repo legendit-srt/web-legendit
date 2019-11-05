@@ -7,13 +7,14 @@ function requisitar(requisicaoBody) {
             
             let blob = requisicaoBody.getElementById(`file-input`).files[0];
             let file = new File([blob], `${Date.now()}-${blob.name}`, { type: blob.type });
-            nomeArquivo = blob.name;
             let formData = new FormData();
             formData.append(`file`, file);
     
             $("#btnSubmit").prop("disabled", true);
             $("#btnDownload").prop("disabled", true);
     
+            nomeArquivo = blob.name;
+
             requisitarNodeS3Upload(formData, requisicaoBody);  
             
         });
@@ -32,7 +33,6 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         cache: false,
 
         success: function (data) {
-            nomeArquivo = data.key;
             requisitarPythonTranscribe(data, requisicaoBody);    
         },
         
@@ -60,6 +60,10 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             requisicaoBody.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
             $("#btnSubmit").prop("disabled", false);
             $("#btnDownload").prop("disabled", false);
+            mostrarComponenteLegenda();
+            esconderComponenteUpload();
+            requisicaoBody.getElementById("titulo").value = nomeArquivo;
+            requisicaoBody.getElementById(`file-input`).files[0] = null;
         },
         
         error: function (e) {
@@ -68,8 +72,4 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
              $("#btnDownload").prop("disabled", false);
         }
     });
-}
-
-function retornaNomeArquivo() {
-    return nomeArquivo;
 }
