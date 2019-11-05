@@ -1,16 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="content/css/style.css">
     <link rel="script" href="content/js/font.js">
     <title>Legendit</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -24,20 +23,20 @@
 
     <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
         <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <div class="file-upload">
+        <div class="file-upload" id="formUpload">
 
             <div class="image-upload-wrap">
 
-                <input class="file-upload-input" id="file-input" type='file' name="file" />
+                <input class="file-upload-input" id="file-input" type='file' name="file"/>
 
                 <div class="drag-text">
                     <h3>Clique ou arraste o arquivo aqui</h3>
-                </div>
+                </div>                  
 
             </div>
 
-            </br>
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar" id="btnSubmit">
+        </br>
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar" id="btnSubmit">  
             <div class="file-upload-content">
 
                 <img class="file-upload-image" src="#" alt="your image" />
@@ -54,9 +53,14 @@
 
     </form>
 
-    <form action="" id="submit">
-        <div class="md-textarea">
+    <form action="" id="submit">    
+        <div class="md-textarea">     
             <textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea>
+        </div>
+        </br>
+
+        <div>
+            <input type="text" id="titulo" placeholder="Nome do Arquivo">
         </div>
 
         </br>
@@ -64,21 +68,27 @@
             <button class="btn btn-primary btn-lg" id="btnDownload" onclick="salvar(document)">Baixar</button>
         </div>
 
+        </br>
+        <div>
+            <button class="btn btn-primary btn-lg" id="btnRefresh" onclick="atualizarPagina()">Legendar novo arquivo</button>
+        </div>
+
     </form>
 
     <script type="text/javascript" src="content/js/save.js">
-        function salvar(documentBody);
+        salvar(document);
     </script>
 
-    <script src="content/js/requisicao.js"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="content/js/requisicao.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        requisitar(document);
+        requisitar(document);        
     </script>
 
     <script src="content/js/createSrt.js">
-        function createSRT(legendaJson);
+        createSRT(legendaJson);    
     </script>
+    
+    <script src="content/js/hideComponents.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </body>
 

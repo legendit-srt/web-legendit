@@ -60,6 +60,8 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             requisicaoBody.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
             $("#btnSubmit").prop("disabled", false);
             $("#btnDownload").prop("disabled", false);
+            mostrarComponenteLegenda();
+            esconderComponenteUpload();
         },
         
         error: function (e) {
