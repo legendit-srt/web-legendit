@@ -1,4 +1,4 @@
-let nomeLegenda
+let nomeArquivo
 
 function requisitar(requisicaoBody) {		
 	$(requisicaoBody).ready(function () {
@@ -13,7 +13,7 @@ function requisitar(requisicaoBody) {
             $("#btnSubmit").prop("disabled", true);
             $("#btnDownload").prop("disabled", true);
     
-            nomeLegenda = blob.name;
+            nomeArquivo = blob.name;
 
             requisitarNodeS3Upload(formData, requisicaoBody);  
             
@@ -62,7 +62,7 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             $("#btnDownload").prop("disabled", false);
             mostrarComponenteLegenda();
             esconderComponenteUpload();
-            requisicaoBody.getElementById("titulo").value = nomeLegenda;
+            requisicaoBody.getElementById("titulo").value = nomeArquivo;
             requisicaoBody.getElementById(`file-input`).files[0] = null;
         },
         
