@@ -16,5 +16,5 @@ function mostrarComponenteUpload(){
 };
 
 function atualizarPagina(){
-    window.location.reload();
+    window.location.reload(true);
 };
