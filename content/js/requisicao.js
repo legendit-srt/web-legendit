@@ -1,4 +1,4 @@
-let nomeArquivo
+let nomeArquivo;
 
 function requisitar(requisicaoBody) {		
 	$(requisicaoBody).ready(function () {
