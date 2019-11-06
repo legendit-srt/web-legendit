@@ -1,6 +1,5 @@
 window.onload = function esconderComponenteLegenda() {    
-    $("#submit").css("display", "none");
-    $("#titulo").css("display", "none");    
+    $("#submit").css("display", "none"); 
 };
 
 function mostrarComponenteLegenda(){

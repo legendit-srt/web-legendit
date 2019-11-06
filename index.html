@@ -1,52 +1,57 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="content/css/style.css">
     <link rel="script" href="content/js/font.js">
     <title>Legendit</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div style="text-align: center">
-        <ul class="navbar-nav w-100 align-items-center" style="margin-top: 30px; padding: 10px">
-            <li class="nav-item">
-                <h1 style="color: #999999">Legendit</h1>
-            </li>
-        </ul>
-    </div>
+    <div class="row">
+        
+    </div>   
 
     <form id="fileUploadForm">
         <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <div class="file-upload" id="formUpload">
-            <div class="image-upload-wrap">
-                <input class="file-upload-input" id="file-input" type='file' name="file"/>
-                <div class="drag-text"><h3>Clique ou arraste o arquivo aqui</h3></div>   
+        <div class="row">
+            <div class="col-xs-12 col-md-6 offset-md-4" ><img src="content/images/logo.png" id="logo"/></div>
+            <div class="file-upload col-xs-12" id="formUpload" action="escondersubmit()">
+                <div class="image-upload-wrap">
+                    <input class="file-upload-input" id="file-input" type='file' name="file"/>
+                    <div class="drag-text"><h3 id="titulotextarea">Clique ou arraste o arquivo aqui</h3></div>
+                </div>
+                </br>
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar!" id="btnSubmit" onclick="(requisitar(document))">
+                <div class="file-upload-content"><img class="file-upload-image" src="#" alt="your image" /></div>
             </div>
-        </br>
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Legendar" id="btnSubmit" onclick="(requisitar(document))">  
-            <div class="file-upload-content"><img class="file-upload-image" src="#" alt="your image" /></div>
+        </div>
+    </form>
+
+    <form id="submit">
+        <div class="row">
+            <div class="md-textarea col-xs-12 col-md-6 offset-md-3"><textarea id="legendagerada" class="md-textarea form-control"></textarea></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 offset-md-3"><input type="hidden" id="titulo"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 offset-md-3"><button class="btn btn-primary btn-lg btn-block" id="btnDownload" onclick="salvar(document)">Baixar</button></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 offset-md-3"><button class="btn btn-primary btn-lg btn-block" id="btnRefresh" onclick="atualizarPagina()">Legendar novo arquivo</button></div>
         </div>
 
     </form>
 
-    <form action="" id="submit">    
-        <div class="md-textarea"><textarea id="legendagerada" class="md-textarea form-control" rows="3"></textarea></div>
-        </br>       
-        <div><input type="text" id="titulo"></div>
-        </br>
-        <div><button class="btn btn-primary btn-lg" id="btnDownload" onclick="salvar(document)">Baixar</button></div>
-        </br>
-        <div><button class="btn btn-primary btn-lg" id="btnRefresh" onclick="atualizarPagina()">Legendar novo arquivo</button></div>
-    </form>
-    
     <script src="content/js/requisicao.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="content/js/createSrt.js"></script>        
+    <script src="content/js/createSrt.js"></script>
     <script src="content/js/save.js"></script>
     <script src="content/js/hideComponents.js" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
