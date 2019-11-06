@@ -129,8 +129,8 @@ body {
 }
 
 #legendagerada{ 
-  width: 400x; 
-  height: 500px;
+  height: 600px;
+  resize: none;
 }
 
 #titulolegendit{
