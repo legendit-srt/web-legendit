@@ -48,7 +48,7 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         
         error: function (e) {
             console.log(e);
-            alert("Erro ao fazer o upload");
+            alert("Erro ao fazer o upload. Entre com contato com nosso suporte.");
             window.location.reload(true);
         }
     });  
