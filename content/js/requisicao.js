@@ -21,9 +21,9 @@ function requisitar(requisicaoBody) {
                     nomeArquivo = blob.name.substring(0, (blob.name.indexOf(".")));
            
                     requisitarNodeS3Upload(formData, requisicaoBody);  
-                } else {
-                    alert("Nenhum arquivo foi adicionado!");
+                } else {                    
                     window.location.reload(true);
+                    ohSnap('Nenhum arquivo foi adicionado!', {color: 'red'});
                 }            
             }
 
@@ -48,7 +48,7 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         
         error: function (e) {
             console.log(e);
-            alert("Arquivo inválido!");
+            alert("Erro ao fazer o upload");
             window.location.reload(true);
         }
     });  
@@ -73,6 +73,7 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             esconderProgressBar();
             requisicaoBody.getElementById("titulo").value = nomeArquivo;
             jaRequisitado = true;   
+            ohSnap('Legenda gerada com sucesso!', {color: 'green'});
         },
         
         error: function (e) {
