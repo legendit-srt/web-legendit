@@ -1,5 +1,6 @@
 window.onload = function esconderComponenteLegenda() {    
     $("#submit").css("display", "none"); 
+    $("#btnSubmit").prop("disabled", true);
 };
 
 function mostrarComponenteLegenda(){
