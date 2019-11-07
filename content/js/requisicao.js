@@ -8,18 +8,23 @@ function requisitar(requisicaoBody) {
             
             if (!jaRequisitado) {
                 
-            let blob = requisicaoBody.getElementById(`file-input`).files[0];
-            let file = new File([blob], `${Date.now()}-${blob.name}`, { type: blob.type });
-            let formData = new FormData();
-            formData.append(`file`, file);
-    
-            $("#btnSubmit").prop("disabled", true);
-            $("#btnDownload").prop("disabled", true);
-    
-            nomeArquivo = blob.name;
+                let blob = requisicaoBody.getElementById(`file-input`).files[0];
 
-            requisitarNodeS3Upload(formData, requisicaoBody);  
-            
+                if (blob != null) {
+                    let file = new File([blob], `${Date.now()}-${blob.name}`, { type: blob.type });
+                    let formData = new FormData();
+                    formData.append(`file`, file);
+                    
+                    $("#btnSubmit").prop("disabled", true);
+                    $("#btnDownload").prop("disabled", true);
+        
+                    nomeArquivo = blob.name.substring(0, (blob.name.indexOf(".")));
+           
+                    requisitarNodeS3Upload(formData, requisicaoBody);  
+                } else {
+                    alert("Nenhum arquivo foi adicionado!");
+                    window.location.reload(true);
+                }            
             }
 
         });
@@ -43,7 +48,8 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         
         error: function (e) {
             console.log(e);
-            $("#btnSubmit").prop("disabled", false);
+            alert("Arquivo inválido!");
+            window.location.reload(true);
         }
     });  
 }
@@ -73,8 +79,8 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
         
         error: function (e) {
             console.log(e);
-            $("#btnSubmit").prop("disabled", false);
-             $("#btnDownload").prop("disabled", false);
+            alert("Erro! arquivo não foi legendado. Isso pode ter ocorrido devido a algum caractere especial no nome do arquivo. Favor realizar o processo novamente inserindo outro nome no arquivo.");
+            window.location.reload(true);
         }
     });
 }
