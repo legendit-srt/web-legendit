@@ -60,7 +60,7 @@ body {
 }
 
 .image-upload-wrap {
-  margin-top: 50px;
+  margin-top: 15px;
   border: 4px dashed cornflowerblue;
   position: relative;
 }
@@ -77,9 +77,9 @@ body {
 }
 
 .drag-text {
-  padding-top: 18%;
+  padding-top: 8%;
   text-align: center;
-  height: 500px;
+  height: 350px;
 }
 
 .drag-text h3 {
@@ -129,7 +129,7 @@ body {
 }
 
 #legendagerada{ 
-  height: 600px;
+  height: 390px;
   resize: none;
 }
 
