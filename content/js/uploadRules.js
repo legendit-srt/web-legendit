@@ -8,7 +8,7 @@ function carregarRegras(documentBody){
             documentBody.getElementById("titulouploadarea").innerHTML = blob.name;
             $("#btnSubmit").prop("disabled", false);
         } else {
-            alert("Tipo de arquivo inválido");
+            alert("Tipo de arquivo inválido! Tipos suportados: MP3, MP4, FLAC e WAV.");
             window.location.reload(true);
         }
                 
