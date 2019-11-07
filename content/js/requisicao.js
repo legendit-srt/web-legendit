@@ -15,8 +15,8 @@ function requisitar(requisicaoBody) {
                     let formData = new FormData();
                     formData.append(`file`, file);
                     
-                    $("#btnSubmit").prop("disabled", true);
-                    $("#btnDownload").prop("disabled", true);
+                    esconderComponenteUpload();
+                    mostrarProgressBar();
         
                     nomeArquivo = blob.name.substring(0, (blob.name.indexOf(".")));
            
@@ -69,17 +69,15 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
         success: function (data) {
             console.log(createSRT(JSON.stringify(data)));
             requisicaoBody.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
-            $("#btnSubmit").prop("disabled", false);
-            $("#btnDownload").prop("disabled", false);
             mostrarComponenteLegenda();
-            esconderComponenteUpload();
+            esconderProgressBar();
             requisicaoBody.getElementById("titulo").value = nomeArquivo;
             jaRequisitado = true;   
         },
         
         error: function (e) {
             console.log(e);
-            alert("Erro! arquivo não foi legendado. Isso pode ter ocorrido devido a algum caractere especial no nome do arquivo. Favor realizar o processo novamente inserindo outro nome no arquivo.");
+            alert("Erro! arquivo não foi legendado. Isso pode ter ocorrido devido a algum caractere especial no nome do arquivo. Favor alterar o nome do arquivo e realizar o processo novamente.");
             window.location.reload(true);
         }
     });
