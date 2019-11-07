@@ -78,7 +78,7 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
         
         error: function (e) {
             console.log(e);
-            alert("Erro! arquivo não foi legendado. Isso pode ter ocorrido devido a algum caractere especial no nome do arquivo. Favor alterar o nome do arquivo e realizar o processo novamente.");
+            alert("Erro! arquivo não foi legendado. Isso pode ter ocorrido devido a algum caractere especial no nome do arquivo. Favor alterar o nome do arquivo e realizar o processo novamente. Caso o erro persista, entre em contato com nosso suporte.");
             window.location.reload(true);
         }
     });

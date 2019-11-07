@@ -3,12 +3,14 @@ function carregarRegras(documentBody){
 
     if (blob != null) {
         let extensao = blob.name.substring(blob.name.indexOf(".") + 1);
+        
+        documentBody.getElementById("titulouploadarea").innerHTML = blob.name;
 
-        if ((extensao == "mp3") || (extensao == "mp4") || (extensao == "flac") || (extensao == "wav")){
-            documentBody.getElementById("titulouploadarea").innerHTML = blob.name;
+        if ((extensao == "mp3") || (extensao == "mp4") || (extensao == "flac") || (extensao == "wav")){            
             $("#btnSubmit").prop("disabled", false);
         } else {
             ohSnap('Tipo de arquivo inválido! Tipos suportados: MP3, MP4, FLAC e WAV.', {color: 'red'});
+            $("#btnSubmit").prop("disabled", true);
         }
                 
     }
