@@ -15,7 +15,8 @@ function requisitar(requisicaoBody) {
                     let formData = new FormData();
                     formData.append(`file`, file);
                     
-                    $("#btnSubmit").prop("disabled", true);
+                    esconderComponenteUpload();
+                    mostrarProgressBar();
         
                     nomeArquivo = blob.name.substring(0, (blob.name.indexOf(".")));
            
@@ -69,7 +70,7 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             console.log(createSRT(JSON.stringify(data)));
             requisicaoBody.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
             mostrarComponenteLegenda();
-            esconderComponenteUpload();
+            esconderProgressBar();
             requisicaoBody.getElementById("titulo").value = nomeArquivo;
             jaRequisitado = true;   
         },

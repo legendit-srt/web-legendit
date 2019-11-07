@@ -1,4 +1,5 @@
-window.onload = function esconderComponenteLegenda() {    
+window.onload = function esconderComponenteLegenda() {  
+    esconderProgressBar();    
     $("#submit").css("display", "none"); 
     $("#btnSubmit").prop("disabled", true);
 };
@@ -18,3 +19,11 @@ function mostrarComponenteUpload(){
 function atualizarPagina(){
     window.location.reload(true);
 };
+
+function esconderProgressBar(){
+    $("#progressbar").css("display", "none");
+}
+
+function mostrarProgressBar(){
+    $("#progressbar").css("display", "");
+}
