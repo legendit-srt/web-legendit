@@ -133,13 +133,6 @@ body {
   resize: none; 
 }
 
-#titulolegendit{
-  text-align: center;
-  padding-top: 30px;
-  font-size: 90;
-  color: #999999;
-}
-
 #logo{
   width: 60%;
   padding-left: 40px;
@@ -193,7 +186,7 @@ body {
   padding-top: 100%;
 }
 
-#btnSubmit{
+#btnSubmit {
   box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
 }
 
@@ -203,4 +196,8 @@ body {
 
 #btnRefresh {
   box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
+
+#video {
+  height: 270px; 
 }

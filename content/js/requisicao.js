@@ -1,5 +1,7 @@
 let nomeArquivo;
 let jaRequisitado;
+let extensao;
+let caminhoVideo;
 
 function requisitar(requisicaoBody) {		
 	$(requisicaoBody).ready(function () {
@@ -19,6 +21,7 @@ function requisitar(requisicaoBody) {
                     mostrarProgressBar();
         
                     nomeArquivo = blob.name.substring(0, (blob.name.indexOf(".")));
+                    extensao = blob.name.substring(blob.name.indexOf(".") + 1);
            
                     requisitarNodeS3Upload(formData, requisicaoBody);  
                 } else {                    
@@ -43,6 +46,8 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         cache: false,
 
         success: function (data) {
+            caminhoVideo = data.location; 
+            requisicaoBody.getElementById("progressbar").innerHTML = "Legendando, aguarde... Que tal um café? =]";
             requisitarPythonTranscribe(data, requisicaoBody);             
         },
         
@@ -71,7 +76,9 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             requisicaoBody.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
             mostrarComponenteLegenda();
             esconderProgressBar();
-            requisicaoBody.getElementById("titulo").value = nomeArquivo;
+            requisicaoBody.getElementById("titulo").value = nomeArquivo;  
+            requisicaoBody.getElementById("video").src = caminhoVideo;
+            mostrarVideo();
             jaRequisitado = true;   
             ohSnap('Legenda gerada com sucesso!', {color: 'green'});
         },

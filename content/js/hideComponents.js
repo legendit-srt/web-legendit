@@ -1,11 +1,25 @@
-window.onload = function esconderComponenteLegenda() {  
-    esconderProgressBar();    
-    $("#submit").css("display", "none"); 
+window.onload = function onLoad() {  
+    esconderProgressBar();   
+    esconderComponenteLegenda();    
+    mostrarComponenteUpload();
+    //esconderVideo();
     $("#btnSubmit").prop("disabled", true);
+};
+
+function esconderComponenteLegenda(){
+    $("#submit").css("display", "none"); 
 };
 
 function mostrarComponenteLegenda(){
     $("#submit").css("display", "");
+};
+
+function mostrarVideo(){
+    $("#video").css("display", ""); 
+};
+
+function esconderVideo(){
+    $("#video").css("display", "none"); 
 };
 
 function esconderComponenteUpload(){
