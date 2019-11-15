@@ -7,10 +7,10 @@ function carregarRegras(documentBody){
         documentBody.getElementById("titulouploadarea").innerHTML = blob.name;
 
         if ((extensao == "mp3") || (extensao == "mp4") || (extensao == "flac")){            
-            $("#btnSubmit").prop("disabled", false);
+            ativarBotaoLegendar();
         } else {
             ohSnap('Tipo de arquivo inválido! Tipos suportados: MP3, MP4 e FLAC.', {color: 'red'});
-            $("#btnSubmit").prop("disabled", true);
+            desativarBotaoLegendar();
         }
                 
     }

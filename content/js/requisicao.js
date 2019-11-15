@@ -17,6 +17,7 @@ function requisitar(requisicaoBody) {
                     let formData = new FormData();
                     formData.append(`file`, file);
                     
+                    desativarExtratorAudio();
                     esconderComponenteUpload();
                     mostrarProgressBar();
         
@@ -86,6 +87,8 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
                 mostrarAudio();
             }
             
+            ativarExtratorAudio();
+
             jaRequisitado = true;   
             ohSnap('Legenda gerada com sucesso!', {color: 'green'});
         },

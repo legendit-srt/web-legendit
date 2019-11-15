@@ -4,12 +4,23 @@ window.onload = function onLoad() {
     mostrarComponenteUpload();
     esconderVideo();
     esconderAudio();
-    mostrarExtratorAudio();
-    $("#btnSubmit").prop("disabled", true);
+    desativarBotaoLegendar();
 };
 
-function mostrarExtratorAudio() {
-    $("#extratorAudio").css("display", ""); 
+function ativarExtratorAudio() {
+    $("#extratorAudio").css("pointer-events", "")
+}
+
+function desativarExtratorAudio() {
+    $("#extratorAudio").css("pointer-events", "none")
+}
+
+function desativarBotaoLegendar() {
+    $("#btnSubmit").prop("disabled", true);
+}
+
+function ativarBotaoLegendar() {
+    $("#btnSubmit").prop("disabled", false);
 }
 
 function esconderComponenteLegenda(){
