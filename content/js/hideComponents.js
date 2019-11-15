@@ -2,7 +2,8 @@ window.onload = function onLoad() {
     esconderProgressBar();   
     esconderComponenteLegenda();    
     mostrarComponenteUpload();
-    //esconderVideo();
+    esconderVideo();
+    esconderAudio();
     $("#btnSubmit").prop("disabled", true);
 };
 
@@ -20,6 +21,14 @@ function mostrarVideo(){
 
 function esconderVideo(){
     $("#video").css("display", "none"); 
+};
+
+function mostrarAudio(){
+    $("#audio").css("display", ""); 
+};
+
+function esconderAudio(){
+    $("#audio").css("display", "none"); 
 };
 
 function esconderComponenteUpload(){
