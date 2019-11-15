@@ -4,8 +4,13 @@ window.onload = function onLoad() {
     mostrarComponenteUpload();
     esconderVideo();
     esconderAudio();
+    mostrarExtratorAudio();
     $("#btnSubmit").prop("disabled", true);
 };
+
+function mostrarExtratorAudio() {
+    $("#extratorAudio").css("display", ""); 
+}
 
 function esconderComponenteLegenda(){
     $("#submit").css("display", "none"); 
