@@ -205,3 +205,10 @@ body {
 #audio {
   width: 480px;
 }
+
+#extratorAudio {
+  box-shadow: -5px 5px 5px rgba(0,0,0,0.5);
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+}
