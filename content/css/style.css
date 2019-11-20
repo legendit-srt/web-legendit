@@ -1,5 +1,5 @@
 body {
-  max-width: 100%;
+  max-width: 95%;
   margin-left: auto;
   margin-right: auto;    
    background-color: rgb(240, 240, 240);
@@ -134,8 +134,8 @@ body {
 }
 
 #logo{
-  width: 60%;
-  padding-left: 40px;
+  width: 70%;
+  padding-left: 10px;
   padding-top: 40px;
 }
 
@@ -200,4 +200,21 @@ body {
 
 #video {
   height: 270px; 
+}
+
+#audio {
+  width: 480px;
+}
+
+#extratorAudio {
+  box-shadow: -5px 5px 5px rgba(0,0,0,0.5);
+  float: right;
+  margin-top: 20px;
+  margin-right: 10px;
+  size: 8px;
+  font-size: 18px;
+}
+
+#fileUploadForm {
+  margin-left: 210px;
 }

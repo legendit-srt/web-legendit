@@ -1,7 +1,7 @@
 let nomeArquivo;
 let jaRequisitado;
 let extensao;
-let caminhoVideo;
+let caminhoMidia;
 
 function requisitar(requisicaoBody) {		
 	$(requisicaoBody).ready(function () {
@@ -17,6 +17,7 @@ function requisitar(requisicaoBody) {
                     let formData = new FormData();
                     formData.append(`file`, file);
                     
+                    desativarExtratorAudio();
                     esconderComponenteUpload();
                     mostrarProgressBar();
         
@@ -46,7 +47,7 @@ function requisitarNodeS3Upload(formData, requisicaoBody) {
         cache: false,
 
         success: function (data) {
-            caminhoVideo = data.location; 
+            caminhoMidia = data.location; 
             requisicaoBody.getElementById("progressbar").innerHTML = "Legendando, aguarde... Que tal um café? =]";
             requisitarPythonTranscribe(data, requisicaoBody);             
         },
@@ -76,9 +77,18 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
             requisicaoBody.getElementById("legendagerada").value = createSRT(JSON.stringify(data));
             mostrarComponenteLegenda();
             esconderProgressBar();
-            requisicaoBody.getElementById("titulo").value = nomeArquivo;  
-            requisicaoBody.getElementById("video").src = caminhoVideo;
-            mostrarVideo();
+            requisicaoBody.getElementById("titulo").value = nomeArquivo;              
+
+            if (extensao === "mp4"){
+                requisicaoBody.getElementById("video").src = caminhoMidia;
+                mostrarVideo();
+            } else {
+                requisicaoBody.getElementById("audio").src = caminhoMidia;
+                mostrarAudio();
+            }
+            
+            ativarExtratorAudio();
+
             jaRequisitado = true;   
             ohSnap('Legenda gerada com sucesso!', {color: 'green'});
         },
