@@ -187,15 +187,15 @@ body {
 }
 
 #btnSubmit {
-  box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
 
 #btnDownload {
-  box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
 
 #btnRefresh {
-  box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
 
 #video {
@@ -207,7 +207,7 @@ body {
 }
 
 #extratorAudio {
-  box-shadow: -5px 5px 5px rgba(0,0,0,0.5);
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
   float: right;
   margin-top: 20px;
   margin-right: 10px;
