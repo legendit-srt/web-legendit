@@ -64,8 +64,8 @@ function requisitarPythonTranscribe(data, requisicaoBody) {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',                        
-        url: "http://127.0.0.1:8000/api/legendar",
-        //url: "http://django-env.xvbuikye2d.us-west-2.elasticbeanstalk.com/api/legendar",                   
+        //url: "http://127.0.0.1:8000/api/legendar",
+        url: "http://django-env.uij22zz2iq.us-west-2.elasticbeanstalk.com/api/legendar",                   
         data: "{\"nome\":".concat(`"${data.key}"}`),
         processData: false,
         contentType: 'application/json',
